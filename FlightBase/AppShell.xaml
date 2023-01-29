@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <Shell
     x:Class="FlightBase.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -6,9 +7,23 @@
     xmlns:local="clr-namespace:FlightBase"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <ShellContent
+            Title="Dashboard"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage"
+            Icon="dotnet_bot.svg"/>
+        <ShellContent
+            Title="Map"
+            ContentTemplate="{DataTemplate local:MapPage}"
+            Route="MapPage"
+            Icon="dotnet_bot.svg"/>
+        <ShellContent
+            Title="Settings"
+            ContentTemplate="{DataTemplate local:SettingsPage}"
+            Route="SettingsPage" 
+            Icon="dotnet_bot.svg"/>
+    </TabBar>
+
 
 </Shell>
