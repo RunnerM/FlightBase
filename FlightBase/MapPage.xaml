@@ -5,7 +5,15 @@
              x:Class="FlightBase.MapPage">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <Map IsShowingUser="True" IsScrollEnabled="True" x:Name="Map"></Map>
+            <StackLayout Orientation="Horizontal">
+                <Picker 
+                    ItemsSource="{Binding MapTypes}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding SelectedMapType}"
+                    Title="Map type"
+                    x:Name="Picker"/>
+            </StackLayout>
+            <Map IsShowingUser="True" IsScrollEnabled="True" x:Name="Map" IsZoomEnabled="True" ></Map>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -12,17 +12,17 @@
             Title="Dashboard"
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage"
-            Icon="dotnet_bot.svg"/>
+            Icon="dashboard_icon.svg"/>
         <ShellContent
             Title="Map"
             ContentTemplate="{DataTemplate local:MapPage}"
             Route="MapPage"
-            Icon="dotnet_bot.svg"/>
+            Icon="map_icon.svg"/>
         <ShellContent
             Title="Settings"
             ContentTemplate="{DataTemplate local:SettingsPage}"
             Route="SettingsPage" 
-            Icon="dotnet_bot.svg"/>
+            Icon="settings_icon.svg"/>
     </TabBar>
 
 

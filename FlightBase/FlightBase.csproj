@@ -15,7 +15,7 @@
         <ApplicationTitle>FlightBase</ApplicationTitle>
 
         <!-- App Identifier -->
-        <ApplicationId>com.companyname.flightbase</ApplicationId>
+        <ApplicationId>dk.pentek.flightbase</ApplicationId>
         <ApplicationIdGuid>873B6310-15C6-4E40-A2B0-B475F2A07638</ApplicationIdGuid>
 
         <!-- Versions -->
@@ -32,10 +32,10 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#05445E" />
 
         <!-- Splash Screen -->
-        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#05445E" BaseSize="128,128" />
 
         <!-- Images -->
         <MauiImage Include="Resources\Images\*" />
