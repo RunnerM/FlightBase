@@ -4,9 +4,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FlightBase.SettingsPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Settings" FontSize="Large" />
-            <Label Text="This is the settings page" />
+        <StackLayout Padding="20,20,20,20" Orientation="Vertical" Spacing="25" VerticalOptions="Start">
+            <Label FontSize="20" FontAttributes="Bold">COM port:</Label>
+            <Picker x:Name="Picker"/>
+            <StackLayout Orientation="Horizontal" VerticalOptions="Start">
+                <Label FontSize="20" FontAttributes="Bold" >Some setting:</Label>
+                <Switch />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
