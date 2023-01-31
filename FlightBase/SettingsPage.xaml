@@ -6,7 +6,7 @@
     <ContentPage.Content>
         <StackLayout Padding="20,20,20,20" Orientation="Vertical" Spacing="25" VerticalOptions="Start">
             <Label FontSize="20" FontAttributes="Bold">COM port:</Label>
-            <Picker x:Name="Picker"/>
+            <Picker ItemsSource="{Binding Ports}"/>
             <StackLayout Orientation="Horizontal" VerticalOptions="Start">
                 <Label FontSize="20" FontAttributes="Bold" >Some setting:</Label>
                 <Switch />

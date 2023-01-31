@@ -14,10 +14,12 @@
             Route="MainPage"
             Icon="dashboard_icon.svg"/>
         <ShellContent
+            x:Name="MapPage"
             Title="Map"
             ContentTemplate="{DataTemplate local:MapPage}"
             Route="MapPage"
-            Icon="map_icon.svg"/>
+            Icon="map_icon.svg"
+            IsVisible="{Binding MapVisible}"/>
         <ShellContent
             Title="Settings"
             ContentTemplate="{DataTemplate local:SettingsPage}"

@@ -1,9 +1,58 @@
-﻿namespace FlightBase.Shared.Services;
+﻿using System.Collections.Generic;
+using System.Runtime.Versioning;
+using System.Threading.Tasks;
+
+namespace FlightBase.Shared.Services;
+
+using System.IO.Ports;
 
 public class SerialService : ISerialService
 {
-    public void DoSomething()
+    private SerialPort _port;
+#pragma warning disable CA1416
+    [UnsupportedOSPlatformGuard("ios")]
+    [UnsupportedOSPlatformGuard("macOS")]
+    public async Task<List<string>> ScanPortsAsync()
     {
-        // do something
+        if (DeviceInfo.Current.Platform != DevicePlatform.WinUI)
+            return DeviceInfo.Current.Platform == DevicePlatform.Android
+                ? new List<string>() {"COM1", "COM2", "COM3", "COM4"}
+                : new List<string>();
+        var ports = SerialPort.GetPortNames();
+        return ports.Length > 0 ? ports.ToList() : new List<string>();
     }
+
+    [UnsupportedOSPlatformGuard("ios")]
+    [UnsupportedOSPlatformGuard("macOS")]
+    public Task<bool> Connect(string portName)
+    {
+        _port = new SerialPort(portName, 9600, Parity.None, 8, StopBits.One);
+        _port.Open();
+        return Task.FromResult(true);
+    }
+
+    [UnsupportedOSPlatformGuard("ios")]
+    [UnsupportedOSPlatformGuard("macOS")]
+    public Task<bool> Disconnect()
+    {
+        _port.Close();
+        return Task.FromResult(true);
+    }
+
+    [UnsupportedOSPlatformGuard("ios")]
+    [UnsupportedOSPlatformGuard("macOS")]
+    public Task<bool> Send(string message)
+    {
+        _port.WriteLine(message);
+        return Task.FromResult(true);
+    }
+
+    [UnsupportedOSPlatformGuard("ios")]
+    [UnsupportedOSPlatformGuard("macOS")]
+    public Task<string> Read()
+    {
+        return Task.FromResult(_port.ReadLine());
+    }
+
+#pragma warning restore CA1416
 }

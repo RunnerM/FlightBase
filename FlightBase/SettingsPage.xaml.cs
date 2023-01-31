@@ -10,19 +10,16 @@ namespace FlightBase;
 
 public partial class SettingsPage : ContentPage
 {
-    public List<string> items { get; set; }
-
-
     public SettingsPage()
     {
-        BindingContext = new SettingsViewModel(Handler?.MauiContext?.Services.GetService<ISerialService>());
-        items = new List<string>
-        {
-            "Item 1",
-            "Item 2",
-            "Item 3",
-        };
+        if(Handler?.MauiContext!=null)
+            BindingContext = new SettingsViewModel(Handler.MauiContext.Services.GetService<ISerialService>());
         InitializeComponent();
-        Picker.ItemsSource = items;
+    }
+
+    protected override void OnHandlerChanged()
+    {
+        if (Handler?.MauiContext != null)
+            BindingContext = new SettingsViewModel(Handler.MauiContext.Services.GetService<ISerialService>());
     }
 }
