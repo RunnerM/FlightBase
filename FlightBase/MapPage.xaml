@@ -5,7 +5,8 @@
              x:Class="FlightBase.MapPage">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <Label FontSize="18" FontAttributes="Bold" Padding="10">Map type:</Label>
                 <Picker 
                     ItemsSource="{Binding MapTypes}"
                     ItemDisplayBinding="{Binding Name}"
@@ -13,7 +14,11 @@
                     Title="Map type"
                     x:Name="Picker"/>
             </StackLayout>
-            <Map IsShowingUser="True" IsScrollEnabled="True" x:Name="Map" IsZoomEnabled="True" ></Map>
+            <Map IsShowingUser="True" 
+                 IsScrollEnabled="True" 
+                 x:Name="Map" 
+                 IsZoomEnabled="True" 
+                 MapType="{Binding  Path=SelectedItem.Type, Mode=OneWay, Source={x:Reference Picker}}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

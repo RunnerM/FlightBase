@@ -7,7 +7,7 @@
 
     <StackLayout Orientation="Vertical" Spacing="25"  VerticalOptions="Start" Padding="30">
         <Label FontSize="20" FontAttributes="Bold">Speed</Label>
-        <Slider x:Name="speedSlider" Minimum="0" Maximum="100" Value="0" />
+        <Label x:Name="SpeedLabel" FontSize="15" />
         <Label FontSize="20" FontAttributes="Bold">Location</Label>
         <Label x:Name="LocationLabel" FontSize="15"></Label>
         <Label FontSize="20" FontAttributes="Bold">Altitude</Label>

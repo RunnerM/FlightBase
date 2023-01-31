@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using FlightBase.Shared.Domain.Model;
 using Microsoft.Maui.Maps;
 
@@ -8,11 +9,9 @@ public class MapViewModel
 {
     public List<mapType> MapTypes { get; set; }
     public mapType SelectedMapType { get; set; }
-    public string _mapStyle { get; set; }
-    
     public MapViewModel()
     {
-        _mapStyle = "";
+        SelectedMapType = new mapType {Name = "Satellite", Type = MapType.Satellite};
         MapTypes = new List<mapType>
         {
             new mapType {Name = "Satellite", Type = MapType.Satellite},

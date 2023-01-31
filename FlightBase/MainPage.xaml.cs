@@ -7,5 +7,6 @@ public partial class MainPage : ContentPage
         InitializeComponent();
         AltitudeLabel.Text = "0";
         LocationLabel.Text = "0";
+        SpeedLabel.Text = "0";
     }
 }

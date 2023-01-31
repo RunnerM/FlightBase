@@ -15,7 +15,6 @@ public partial class MapPage : ContentPage
     public MapPage()
     {
         InitializeComponent();
-        Map.MapType = MapType.Satellite;
         Location location = Geolocation.GetLastKnownLocationAsync().Result;
         if (location != null)
             Map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromKilometers(1)));
