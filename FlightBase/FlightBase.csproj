@@ -54,4 +54,8 @@
         <PackageReference Include="System.IO.Ports" Version="7.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\UsbSerialForAndroid\UsbSerialForAndroid\UsbSerialForAndroid.csproj" />
+    </ItemGroup>
+
 </Project>
