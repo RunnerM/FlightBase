@@ -1,5 +1,6 @@
 ﻿using System.IO.Ports;
 using System.Runtime.Versioning;
+using FlightBase.Shared.Services.Common;
 
 namespace FlightBase.Shared.Services.Windows;
 

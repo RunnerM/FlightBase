@@ -4,16 +4,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FlightBase.MainPage">
 
-
-    <StackLayout Orientation="Vertical" Spacing="25"  VerticalOptions="Start" Padding="30">
-        <Label FontSize="20" FontAttributes="Bold">Speed</Label>
-        <Label x:Name="SpeedLabel" FontSize="15" />
-        <Label FontSize="20" FontAttributes="Bold">Location</Label>
-        <Label x:Name="LocationLabel" FontSize="15"></Label>
-        <Label FontSize="20" FontAttributes="Bold">Altitude</Label>
-        <Label x:Name="AltitudeLabel" FontSize="15"></Label>
-        
-    </StackLayout>
+    <Grid VerticalOptions="Start" Padding="30" RowSpacing="6" ColumnSpacing="6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition  Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="350" x:Name="LogRowDefinition"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" FontSize="20" FontAttributes="Bold">Speed</Label>
+        <Label Grid.Column="0" Grid.Row="1" x:Name="SpeedLabel" FontSize="15" />
+        <Label  Grid.Column="0" Grid.Row="2" FontSize="20" FontAttributes="Bold">Location</Label>
+        <Label Grid.Column="0" Grid.Row="3" x:Name="LocationLabel" FontSize="15"></Label>
+        <Label Grid.Column="0" Grid.Row="4" FontSize="20" FontAttributes="Bold">Altitude</Label>
+        <Label Grid.Column="0" Grid.Row="5" x:Name="AltitudeLabel" FontSize="15"></Label>
+        <Label Grid.Column="0" Grid.Row="6" FontSize="20" FontAttributes="Bold">Serial Log</Label>
+        <Button Grid.Column="0" Grid.Row="7" Text="generate logs" Pressed="Button_OnPressed"></Button>
+        <ScrollView Grid.Column="0" Grid.Row="8" VerticalOptions="Fill">
+            <Label x:Name="SerialLogLabel" FontSize="15" FontAutoScalingEnabled="True"></Label>
+        </ScrollView>
+    </Grid>
 
 
 </ContentPage>

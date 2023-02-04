@@ -1,4 +1,4 @@
-﻿namespace FlightBase.Shared.Services;
+﻿namespace FlightBase.Shared.Services.Common;
 
 public interface ISerialService
 {
