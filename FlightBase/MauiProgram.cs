@@ -1,4 +1,6 @@
 ﻿using FlightBase.Shared.Services;
+using FlightBase.Shared.Services.Android;
+using FlightBase.Shared.Services.Windows;
 using FlightBase.Shared.ViewModel;
 using Microsoft.Extensions.Logging;
 
@@ -28,8 +30,15 @@ public static class MauiProgram
 
     private static MauiAppBuilder RegisterAppServices(this MauiAppBuilder mauiAppBuilder)
     {
-        //general services
-        mauiAppBuilder.Services.AddSingleton<ISerialService, SerialService>();
+        //device specific services
+        if (DeviceInfo.Current.Platform == DevicePlatform.Android)
+        {
+            mauiAppBuilder.Services.AddSingleton<ISerialService,AndroidSerialService>();
+        }
+        else if (DeviceInfo.Current.Platform == DevicePlatform.WinUI)
+        {
+            mauiAppBuilder.Services.AddSingleton<ISerialService,WindowsSerialService>();
+        }
         // map services
         mauiAppBuilder.UseMauiMaps();
         return mauiAppBuilder;

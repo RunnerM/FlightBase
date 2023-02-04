@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.IO.Ports;
 using System.Runtime.Versioning;
-using System.Threading.Tasks;
 
-namespace FlightBase.Shared.Services;
+namespace FlightBase.Shared.Services.Windows;
 
-using System.IO.Ports;
-
-public class SerialService : ISerialService
+public class WindowsSerialService : ISerialService
 {
+
     private SerialPort _port;
 #pragma warning disable CA1416
     [UnsupportedOSPlatformGuard("ios")]
