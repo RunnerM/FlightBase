@@ -4,13 +4,13 @@ using FlightBase.Shared.Services.Common;
 
 namespace FlightBase.Shared.Services.Android;
 
-public class AndroidSerialService : ISerialService
+public class AndroidSerialService : SerialService
 {
     private SerialPort _port;
 
     [UnsupportedOSPlatformGuard("ios")]
     [UnsupportedOSPlatformGuard("macOS")]
-    public async Task<List<string>> ScanPortsAsync()
+    public override async Task<List<string>> ScanPortsAsync()
     {
         var ports = new List<string>() {"COM1", "COM2", "COM3", "COM4"};
         return ports;
@@ -18,28 +18,28 @@ public class AndroidSerialService : ISerialService
 
     [UnsupportedOSPlatformGuard("ios")]
     [UnsupportedOSPlatformGuard("macOS")]
-    public Task<bool> Connect(string portName)
+    public override Task<bool> Connect()
     {
         throw new NotImplementedException();
     }
 
     [UnsupportedOSPlatformGuard("ios")]
     [UnsupportedOSPlatformGuard("macOS")]
-    public Task<bool> Disconnect()
+    public override Task<bool> Disconnect()
     {
         throw new NotImplementedException();
     }
 
     [UnsupportedOSPlatformGuard("ios")]
     [UnsupportedOSPlatformGuard("macOS")]
-    public Task<bool> Send(string message)
+    public override Task<bool> Send(string message)
     {
         throw new NotImplementedException();
     }
 
     [UnsupportedOSPlatformGuard("ios")]
     [UnsupportedOSPlatformGuard("macOS")]
-    public Task<string> Read()
+    public override Task<string> Read()
     {
         throw new NotImplementedException();
     }

@@ -4,35 +4,34 @@ using FlightBase.Shared.Services.Common;
 
 namespace FlightBase.Shared.Services.Windows;
 
-public class WindowsSerialService : ISerialService
+public class WindowsSerialService : SerialService
 {
-
     private SerialPort _port;
 #pragma warning disable CA1416
+    public WindowsSerialService()
+    {
+        _port= new SerialPort();
+    }
     [UnsupportedOSPlatformGuard("ios")]
     [UnsupportedOSPlatformGuard("macOS")]
-    public async Task<List<string>> ScanPortsAsync()
+    public override async Task<List<string>> ScanPortsAsync()
     {
-        if (DeviceInfo.Current.Platform != DevicePlatform.WinUI)
-            return DeviceInfo.Current.Platform == DevicePlatform.Android
-                ? new List<string>() {"COM1", "COM2", "COM3", "COM4"}
-                : new List<string>();
         var ports = SerialPort.GetPortNames();
         return ports.Length > 0 ? ports.ToList() : new List<string>();
     }
 
     [UnsupportedOSPlatformGuard("ios")]
     [UnsupportedOSPlatformGuard("macOS")]
-    public Task<bool> Connect(string portName)
+    public override Task<bool> Connect()
     {
-        _port = new SerialPort(portName, 9600, Parity.None, 8, StopBits.One);
+        _port = new SerialPort(_portName, _baudRate, Parity.None, 8, StopBits.One);
         _port.Open();
         return Task.FromResult(true);
     }
 
     [UnsupportedOSPlatformGuard("ios")]
     [UnsupportedOSPlatformGuard("macOS")]
-    public Task<bool> Disconnect()
+    public override Task<bool> Disconnect()
     {
         _port.Close();
         return Task.FromResult(true);
@@ -40,7 +39,7 @@ public class WindowsSerialService : ISerialService
 
     [UnsupportedOSPlatformGuard("ios")]
     [UnsupportedOSPlatformGuard("macOS")]
-    public Task<bool> Send(string message)
+    public override Task<bool> Send(string message)
     {
         _port.WriteLine(message);
         return Task.FromResult(true);
@@ -48,7 +47,7 @@ public class WindowsSerialService : ISerialService
 
     [UnsupportedOSPlatformGuard("ios")]
     [UnsupportedOSPlatformGuard("macOS")]
-    public Task<string> Read()
+    public override Task<string> Read()
     {
         return Task.FromResult(_port.ReadLine());
     }

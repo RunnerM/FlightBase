@@ -23,4 +23,23 @@ public partial class SettingsPage : ContentPage
         if (Handler?.MauiContext != null)
             BindingContext = new SettingsViewModel(Handler.MauiContext.Services.GetService<ISerialService>());
     }
+
+    private void BaudPickerOnSelectedIndexChanged(object sender, EventArgs e)
+    {
+        var picker=(Picker) sender;
+        var rate =(int) picker.SelectedItem;
+        ((SettingsViewModel) BindingContext).SetBaudRate(rate);
+    }
+    
+    private void PortPickerOnSelectedIndexChanged(object sender, EventArgs e)
+    {
+        var picker=(Picker) sender;
+        var port =(string) picker.SelectedItem;
+        ((SettingsViewModel) BindingContext).ConfigurePort(port);
+    }
+
+    private void ReScanPortsButtonOnPressed(object sender, EventArgs e)
+    {
+        ((SettingsViewModel) BindingContext).ScanPorts();
+    }
 }
