@@ -1,4 +1,6 @@
-﻿namespace FlightBase.Shared.Services.Common;
+﻿using System.IO.Ports;
+
+namespace FlightBase.Shared.Services.Common;
 
 public interface ISerialService
 {
@@ -9,5 +11,8 @@ public interface ISerialService
     public Task<String> Read();
     public Task ConfigureBaudRate(int baudRate);
     public Task ConfigurePort(string portName);
+
+    public void AssignSerialHandler(SerialDataReceivedEventHandler handler);
+    public bool IsConnected();
 
 }

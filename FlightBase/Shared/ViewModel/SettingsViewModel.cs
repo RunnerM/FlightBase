@@ -8,6 +8,10 @@ public class SettingsViewModel : BindableObject
     private readonly ISerialService _serialService;
     public List<string> Ports { get; set; }
     public List<int> Bauds { get; set; }
+
+    public string ConnectBtnText { get; set; } = "Connect";
+    
+    public bool IsConnected => _serialService.IsConnected();
     
     public SettingsViewModel(ISerialService serialService)
     {
@@ -16,27 +20,38 @@ public class SettingsViewModel : BindableObject
         Bauds = new List<int>() {9600, 19200, 38400, 57600, 115200};
     }
     
-    public Task ScanPorts()
+    public void ScanPorts()
     {
         Ports =  _serialService.ScanPortsAsync().GetAwaiter().GetResult();
         OnPropertyChanged(nameof(Ports));
-        return Task.CompletedTask;
     }
     
-    public Task SetBaudRate(int baudRate)
+    public void SetBaudRate(int baudRate)
     {
         _serialService.ConfigureBaudRate(baudRate);
-        return Task.CompletedTask;
     }
-    public Task ConfigurePort(string portName)
+    public void ConfigurePort(string portName)
     {
         _serialService.ConfigurePort(portName);
-        return Task.CompletedTask;
     }
     
-    public Task Connect()
+    public Task<bool> Connect()
     {
-        _serialService.Connect();
-        return Task.CompletedTask;
+        if (_serialService.Connect().Result)
+        {
+            ConnectBtnText = "Disconnect";
+            OnPropertyChanged(nameof(ConnectBtnText));
+        }
+        return Task.FromResult(false);
+    }
+    
+    public Task<bool> Disconnect()
+    {
+        if (_serialService.Disconnect().Result)
+        {
+            ConnectBtnText = "Connect";
+            OnPropertyChanged(nameof(ConnectBtnText));
+        }
+        return Task.FromResult(false);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.IO.Ports;
+﻿using System.Diagnostics;
+using System.IO.Ports;
 using System.Runtime.Versioning;
 using FlightBase.Shared.Services.Common;
 
@@ -7,11 +8,12 @@ namespace FlightBase.Shared.Services.Windows;
 public class WindowsSerialService : SerialService
 {
     private SerialPort _port;
+    public static SerialDataReceivedEventHandler DataReceivedHandler { get; set; }
+    
 #pragma warning disable CA1416
-    public WindowsSerialService()
-    {
-        _port= new SerialPort();
-    }
+
+    public override bool IsConnected => _port?.IsOpen ?? false;
+
     [UnsupportedOSPlatformGuard("ios")]
     [UnsupportedOSPlatformGuard("macOS")]
     public override async Task<List<string>> ScanPortsAsync()
@@ -24,9 +26,18 @@ public class WindowsSerialService : SerialService
     [UnsupportedOSPlatformGuard("macOS")]
     public override Task<bool> Connect()
     {
-        _port = new SerialPort(_portName, _baudRate, Parity.None, 8, StopBits.One);
-        _port.Open();
-        return Task.FromResult(true);
+        try
+        {
+            _port = new SerialPort(_portName, _baudRate, Parity.None, 8, StopBits.One);
+            _port.DataReceived += DataReceivedHandler;
+            _port.DataReceived += (sender, args) => Debug.WriteLine("Data received on: "+_portName+" "+_baudRate);
+            _port.Open();
+            return Task.FromResult(true);
+        }
+        catch
+        {
+            return Task.FromResult(false);
+        }
     }
 
     [UnsupportedOSPlatformGuard("ios")]
@@ -49,8 +60,22 @@ public class WindowsSerialService : SerialService
     [UnsupportedOSPlatformGuard("macOS")]
     public override Task<string> Read()
     {
-        return Task.FromResult(_port.ReadLine());
+        _port.DataReceived += (sender, args) =>
+        {
+            if (CanRead())
+                _port.ReadLine();
+        };
+        if (CanRead())
+            return Task.FromResult(_port.ReadLine());
+        return Task.FromResult(string.Empty);
     }
+
+    public override void AssignSerialHandler(SerialDataReceivedEventHandler handler)
+    {
+        DataReceivedHandler = handler;
+    }
+
+    private bool CanRead() => _port.IsOpen && _port.BytesToRead > 0;
 
 #pragma warning restore CA1416
 }

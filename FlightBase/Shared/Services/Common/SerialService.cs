@@ -1,9 +1,12 @@
-﻿namespace FlightBase.Shared.Services.Common;
+﻿using System.IO.Ports;
+
+namespace FlightBase.Shared.Services.Common;
 
 public abstract class SerialService : ISerialService
 {
     protected int _baudRate;
     protected string _portName;
+    public abstract bool IsConnected { get; }
     public abstract Task<List<string>> ScanPortsAsync();
     public abstract Task<bool> Connect();
     public abstract Task<bool> Disconnect();
@@ -21,4 +24,7 @@ public abstract class SerialService : ISerialService
         _portName = portName;
         return Task.CompletedTask;
     }
+
+    public abstract void AssignSerialHandler(SerialDataReceivedEventHandler handler);
+    bool ISerialService.IsConnected() => IsConnected;
 }

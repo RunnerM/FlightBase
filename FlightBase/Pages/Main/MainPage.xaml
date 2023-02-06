@@ -4,7 +4,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FlightBase.MainPage">
     <ContentPage.Resources>
-        <StyleSheet Source="Pages/Main/MainPage.xaml.css" />
+        <StyleSheet Source="/Pages/Main/MainPage.xaml.css" />
+        <StyleSheet Source="/Resources/Styles/css/general.css" />
     </ContentPage.Resources>
 
     <Grid VerticalOptions="Start" Padding="30" RowSpacing="6" ColumnSpacing="6">
@@ -28,10 +29,12 @@
         <Label Grid.Column="0" Grid.Row="3" x:Name="LocationLabel" FontSize="15"></Label>
         <Label Grid.Column="0" Grid.Row="4" FontSize="20" FontAttributes="Bold">Altitude</Label>
         <Label Grid.Column="0" Grid.Row="5" x:Name="AltitudeLabel" FontSize="15"></Label>
-        <Label Grid.Column="0" Grid.Row="6" FontSize="20" FontAttributes="Bold">Serial Log</Label>
-        <Button Grid.Column="0" Grid.Row="7" Text="generate logs" Pressed="Button_OnPressed"></Button>
+        <StackLayout Grid.Column="0" Grid.Row="6" Orientation="Horizontal" Spacing="20">
+            <Label FontSize="20" FontAttributes="Bold" Padding="6">Serial Log</Label>
+            <Button Text="Clear" Clicked="ClearLogButtonPressed" StyleClass="btn" />
+        </StackLayout>
         <ScrollView Grid.Column="0" Grid.Row="8" VerticalOptions="Fill">
-            <Label x:Name="SerialLogLabel" FontSize="15" FontAutoScalingEnabled="True"></Label>
+            <Label x:Name="SerialLogLabel" FontSize="15" FontAutoScalingEnabled="True" Text="{Binding RenderedLog, Mode=OneWay}"></Label>
         </ScrollView>
     </Grid>
 

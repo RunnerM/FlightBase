@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FlightBase.Shared.Domain.Model;
 using FlightBase.Shared.ViewModel;
 using Microsoft.Maui.Maps;
+using Location = Microsoft.Maui.Devices.Sensors.Location;
 
 namespace FlightBase;
 

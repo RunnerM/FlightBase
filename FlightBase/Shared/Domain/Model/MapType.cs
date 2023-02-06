@@ -2,8 +2,8 @@
 
 namespace FlightBase.Shared.Domain.Model;
 
-public class mapType
+public class MapType
 {
     public string Name { get; set; }
-    public MapType Type { get; set; }
+    public Microsoft.Maui.Maps.MapType Type { get; set; }
 }

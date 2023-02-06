@@ -8,6 +8,8 @@ public class AndroidSerialService : SerialService
 {
     private SerialPort _port;
 
+    public override bool IsConnected => _port.IsOpen;
+
     [UnsupportedOSPlatformGuard("ios")]
     [UnsupportedOSPlatformGuard("macOS")]
     public override async Task<List<string>> ScanPortsAsync()
@@ -40,6 +42,11 @@ public class AndroidSerialService : SerialService
     [UnsupportedOSPlatformGuard("ios")]
     [UnsupportedOSPlatformGuard("macOS")]
     public override Task<string> Read()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void AssignSerialHandler(SerialDataReceivedEventHandler handler)
     {
         throw new NotImplementedException();
     }

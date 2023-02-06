@@ -5,9 +5,10 @@
              x:Class="FlightBase.SettingsPage">
     <ContentPage.Resources>
         <StyleSheet Source="/Pages/Settings/SettingsPage.xaml.css"/>
+        <StyleSheet Source="/Resources/Styles/css/general.css" />
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Padding="20,20,20,20" Orientation="Vertical" Spacing="25" VerticalOptions="Start">
+        <StackLayout Padding="20,20,20,20" Orientation="Vertical" Spacing="25" VerticalOptions="Start" x:Name="Layout">
             <StackLayout Orientation="Horizontal" VerticalOptions="Center" Spacing="20">
                 <Label Padding="5" FontSize="20" FontAttributes="Bold">COM port:</Label>
                 <Button Pressed="ReScanPortsButtonOnPressed" Text="Re-scan ports" StyleClass="btn"/>
@@ -15,6 +16,7 @@
             <Picker SelectedIndexChanged="PortPickerOnSelectedIndexChanged" ItemsSource="{Binding Ports, Mode=OneWay}"/>
             <Label FontSize="20" FontAttributes="Bold">Baud rate:</Label>
             <Picker SelectedIndexChanged="BaudPickerOnSelectedIndexChanged" ItemsSource="{Binding Bauds}"/>
+            <Button Pressed="ConnectButtonOnPressed"   Text="{Binding ConnectBtnText}" StyleClass="btn"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
