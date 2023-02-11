@@ -1,9 +1,9 @@
-﻿using FlightBase.Shared.Services;
-using FlightBase.Shared.Services.Android;
+﻿using FlightBase.Shared.Services.Android;
 using FlightBase.Shared.Services.Common;
 using FlightBase.Shared.Services.Windows;
 using FlightBase.Shared.ViewModel;
 using Microsoft.Extensions.Logging;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace FlightBase;
 
@@ -16,6 +16,7 @@ public static class MauiProgram
             .RegisterViewModels();
         builder
             .UseMauiApp<App>()
+            .UseSkiaSharp(true)
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -26,7 +27,9 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
+        
         return builder.Build();
+        
     }
 
     private static MauiAppBuilder RegisterAppServices(this MauiAppBuilder mauiAppBuilder)
@@ -35,6 +38,7 @@ public static class MauiProgram
         if (DeviceInfo.Current.Platform == DevicePlatform.Android)
         {
             mauiAppBuilder.Services.AddSingleton<ISerialService,AndroidSerialService>();
+            //mauiAppBuilder.Services.AddSingleton<UsbManager>();
         }
         else if (DeviceInfo.Current.Platform == DevicePlatform.WinUI)
         {
@@ -50,6 +54,9 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<SettingsViewModel>();
         mauiAppBuilder.Services.AddSingleton<MapViewModel>();
         mauiAppBuilder.Services.AddSingleton<MainViewModel>();
+        mauiAppBuilder.Services.AddSingleton<SettingsPage>();
+        mauiAppBuilder.Services.AddSingleton<MapPage>();
+        mauiAppBuilder.Services.AddSingleton<MainPage>();
         return mauiAppBuilder;
     }
 }

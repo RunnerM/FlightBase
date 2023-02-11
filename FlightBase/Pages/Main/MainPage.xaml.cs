@@ -7,7 +7,7 @@ namespace FlightBase;
 public partial class MainPage : ContentPage
 {
     
-    public MainPage()
+    public MainPage(MainViewModel mainViewModel)
     {
         InitializeComponent();
         AltitudeLabel.Text = "0";
@@ -17,14 +17,8 @@ public partial class MainPage : ContentPage
             LogRowDefinition.Height = new GridLength(350);
         else if (DeviceInfo.Current.Platform == DevicePlatform.WinUI)
             LogRowDefinition.Height = new GridLength(500);
-        if(Handler?.MauiContext!=null)
-            BindingContext = new MainViewModel(Handler.MauiContext.Services.GetService<ISerialService>());
-    }
-    
-    protected override void OnHandlerChanged()
-    {
-        if (Handler?.MauiContext != null)
-            BindingContext = new MainViewModel(Handler.MauiContext.Services.GetService<ISerialService>());
+        BindingContext = mainViewModel;
+        
     }
 
     private void ClearLogButtonPressed(object sender, EventArgs e)

@@ -7,7 +7,8 @@ public partial class AppShell : Shell
     public AppShell()
     {
         BindingContext = this;
-        MapVisible = DeviceInfo.Platform != DevicePlatform.WinUI;
+        MapVisible = true;//DeviceInfo.Platform != DevicePlatform.WinUI;
         InitializeComponent();
+        Title = "FlightBase";
     }
 }

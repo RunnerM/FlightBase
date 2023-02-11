@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FlightBase.Shared.Services;
-using FlightBase.Shared.Services.Common;
+﻿using FlightBase.Shared.Services.Common;
 using FlightBase.Shared.ViewModel;
 
 namespace FlightBase;
@@ -13,17 +7,10 @@ public partial class SettingsPage : ContentPage
 {
     private bool _isConnected => ((SettingsViewModel) BindingContext).IsConnected;
 
-    public SettingsPage()
+    public SettingsPage(SettingsViewModel settingsViewModel)
     {
-        if (Handler?.MauiContext != null)
-            BindingContext = new SettingsViewModel(Handler.MauiContext.Services.GetService<ISerialService>());
+        BindingContext = settingsViewModel;
         InitializeComponent();
-    }
-
-    protected override void OnHandlerChanged()
-    {
-        if (Handler?.MauiContext != null)
-            BindingContext = new SettingsViewModel(Handler.MauiContext.Services.GetService<ISerialService>());
     }
 
     private void BaudPickerOnSelectedIndexChanged(object sender, EventArgs e)
