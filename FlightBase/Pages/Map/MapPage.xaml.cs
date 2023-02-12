@@ -45,6 +45,5 @@ public partial class MapPage : ContentPage
         MapView.MyLocationFollow = true;
         BindingContext= mapViewModel;
         Drawables = mapViewModel.Drawables;
-        //BindingContext = mapViewModel;
     }
 }

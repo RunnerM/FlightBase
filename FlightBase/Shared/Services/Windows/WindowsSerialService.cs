@@ -8,9 +8,15 @@ namespace FlightBase.Shared.Services.Windows;
 public class WindowsSerialService : SerialService
 {
     private SerialPort _port;
-    public static SerialDataReceivedEventHandler DataReceivedHandler { get; set; }
-    
+    public static List<SerialDataReceivedEventHandler> DataReceivedHandlers { get; set; }
+
+
+
 #pragma warning disable CA1416
+    public WindowsSerialService()
+    {
+        DataReceivedHandlers = new List<SerialDataReceivedEventHandler>();
+    }
 
     public override bool IsConnected => _port?.IsOpen ?? false;
 
@@ -29,7 +35,10 @@ public class WindowsSerialService : SerialService
         try
         {
             _port = new SerialPort(_portName, _baudRate, Parity.None, 8, StopBits.One);
-            _port.DataReceived += DataReceivedHandler;
+            foreach (var handler in DataReceivedHandlers)
+            {
+                _port.DataReceived += handler;
+            }
             _port.DataReceived += (sender, args) => Debug.WriteLine("Data received on: "+_portName+" "+_baudRate);
             _port.Open();
             return Task.FromResult(true);
@@ -72,7 +81,7 @@ public class WindowsSerialService : SerialService
 
     public override void AssignSerialHandler(SerialDataReceivedEventHandler handler)
     {
-        DataReceivedHandler = handler;
+        DataReceivedHandlers.Add(handler);
     }
 
     private bool CanRead() => _port.IsOpen && _port.BytesToRead > 0;
