@@ -36,7 +36,7 @@ public class Location
             _ => throw new ArgumentException()
         };
 
-        return new Location(lat,lng);
+        return new Location(lat/100,lng/100);
     }
 
 }

@@ -22,7 +22,7 @@ public class SettingsViewModel : BindableObject
     
     public void ScanPorts()
     {
-        Ports =  _serialService.ScanPortsAsync().GetAwaiter().GetResult();
+        Ports = _serialService.ScanPortsAsync().GetAwaiter().GetResult();
         OnPropertyChanged(nameof(Ports));
     }
     

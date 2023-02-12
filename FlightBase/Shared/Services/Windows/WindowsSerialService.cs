@@ -40,6 +40,8 @@ public class WindowsSerialService : SerialService
                 _port.DataReceived += handler;
             }
             _port.DataReceived += (sender, args) => Debug.WriteLine("Data received on: "+_portName+" "+_baudRate);
+            _port.ErrorReceived += (sender, args) => Debug.WriteLine("Error received on: "+_portName+" "+_baudRate);
+            _port.ErrorReceived += ErrorReceived;
             _port.Open();
             return Task.FromResult(true);
         }
@@ -47,6 +49,11 @@ public class WindowsSerialService : SerialService
         {
             return Task.FromResult(false);
         }
+    }
+
+    private void ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
+    {
+        _port.Close();
     }
 
     [UnsupportedOSPlatformGuard("ios")]
@@ -82,6 +89,8 @@ public class WindowsSerialService : SerialService
     public override void AssignSerialHandler(SerialDataReceivedEventHandler handler)
     {
         DataReceivedHandlers.Add(handler);
+        if (_port != null)
+            _port.DataReceived += handler;
     }
 
     private bool CanRead() => _port.IsOpen && _port.BytesToRead > 0;

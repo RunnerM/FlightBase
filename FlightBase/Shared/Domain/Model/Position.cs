@@ -1,4 +1,5 @@
 ﻿using BruTile.Wms;
+using System.Text.RegularExpressions;
 
 namespace FlightBase.Shared.Domain.Model;
 
@@ -7,6 +8,9 @@ public class Position
     public Location Location { get; set; }
     public double Altitude { get; set; }
     public double Speed { get; set; }
+
+    private static readonly Regex Regex = new("[A-Za-z]\\d\\d\\d\\d\\.\\d\\d\\d\\d\\d,[A-Za-z]\\d\\d\\d\\d\\d\\.\\d\\d\\d\\d\\d,\\d\\d\\d\\d\\d\\d,[0-9]*\\.[0-9]+;", RegexOptions.IgnoreCase);
+
 
     public Position() { }
 
@@ -31,7 +35,8 @@ public class Position
     /// <returns></returns>
     public static Position FromData(string line)
     {
-        line= line.TrimEnd('\r');
+        if (!Regex.IsMatch(line))  return new Position();
+        line = line.TrimEnd('\r');
         line=line.TrimEnd(';');
         var data = line.Split(',');
         return new Position(Location.FromData(data[0], data[1]), double.Parse(data[2]), double.Parse(data[3]));

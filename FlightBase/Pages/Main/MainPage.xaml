@@ -24,17 +24,17 @@
             <RowDefinition Height="350" x:Name="LogRowDefinition"/>
         </Grid.RowDefinitions>
         <Label Grid.Column="0" Grid.Row="0" FontSize="20" FontAttributes="Bold">Speed</Label>
-        <Label Grid.Column="0" Grid.Row="1" x:Name="SpeedLabel" FontSize="15" />
+        <Label Grid.Column="0" Grid.Row="1" x:Name="SpeedLabel" FontSize="18" CharacterSpacing="2" Text="{Binding Speed, Mode=OneWay}" />
         <Label  Grid.Column="0" Grid.Row="2" FontSize="20" FontAttributes="Bold">Location</Label>
-        <Label Grid.Column="0" Grid.Row="3" x:Name="LocationLabel" FontSize="15"></Label>
+        <Label Grid.Column="0" Grid.Row="3" x:Name="LocationLabel" FontSize="18" CharacterSpacing="2" Text="{Binding Location, Mode=OneWay}"></Label>
         <Label Grid.Column="0" Grid.Row="4" FontSize="20" FontAttributes="Bold">Altitude</Label>
-        <Label Grid.Column="0" Grid.Row="5" x:Name="AltitudeLabel" FontSize="15"></Label>
+        <Label Grid.Column="0" Grid.Row="5" x:Name="AltitudeLabel" FontSize="18" CharacterSpacing="2" Text="{Binding Altitude, Mode=OneWay}"></Label>
         <StackLayout Grid.Column="0" Grid.Row="6" Orientation="Horizontal" Spacing="20">
             <Label FontSize="20" FontAttributes="Bold" Padding="6">Serial Log</Label>
             <Button Text="Clear" Clicked="ClearLogButtonPressed" StyleClass="btn" />
         </StackLayout>
         <ScrollView Grid.Column="0" Grid.Row="8" VerticalOptions="Fill">
-            <Label x:Name="SerialLogLabel" FontSize="15" FontAutoScalingEnabled="True" Text="{Binding RenderedLog, Mode=OneWay}"></Label>
+            <Label x:Name="SerialLogLabel" FontSize="18" FontAutoScalingEnabled="True" Text="{Binding RenderedLog, Mode=OneWay}"></Label>
         </ScrollView>
     </Grid>
 

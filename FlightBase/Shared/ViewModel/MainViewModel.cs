@@ -1,4 +1,5 @@
 ﻿using System.IO.Ports;
+using FlightBase.Shared.Domain.Model;
 using FlightBase.Shared.Services.Common;
 using Environment = System.Environment;
 
@@ -31,8 +32,17 @@ public class MainViewModel : BindableObject
         SerialPort sp = (SerialPort)sender;
         string indata = sp.ReadLine();
         Logs.Add(indata);
-        RenderedLog += indata + Environment.NewLine;
+        RenderedLog += DateTime.Now+" --> "+indata;
         OnPropertyChanged(nameof(RenderedLog));
+        var data = Position.FromData(indata);
+        if(data.Altitude==0 || data.Location.Latitude==0)
+            return;
+        Altitude = data.Altitude.ToString();
+        Location = data.Location.Latitude+ ", " + data.Location.Longitude;
+        Speed = data.Speed.ToString();
+        OnPropertyChanged(nameof(Altitude));
+        OnPropertyChanged(nameof(Location));
+        OnPropertyChanged(nameof(Speed));
     }
 
 

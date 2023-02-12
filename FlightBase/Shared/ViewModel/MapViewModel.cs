@@ -15,12 +15,15 @@ public class MapViewModel : BindableObject
 {
     public IList<Drawable> Drawables { get; set; } = new List<Drawable>();
     private Track _track = new(new List<Position>());
-    private static readonly Regex Regex = new("[A-Za-z]\\d\\d\\d\\d\\.\\d\\d\\d\\d\\d,[A-Za-z]\\d\\d\\d\\d\\d\\.\\d\\d\\d\\d\\d,\\d\\d\\d\\d\\d\\d,[0-9]*\\.[0-9]+;",RegexOptions.IgnoreCase);
 
 
     public MapViewModel(ISerialService serialService)
     {
-        Drawables.Add(new Polyline());
+        Drawables.Add(new Polyline()
+        {
+            StrokeColor = Color.FromRgb(255,0,0),
+            StrokeWidth = 5,
+        });
         serialService.AssignSerialHandler(HandleDataReceived);
     }
 
@@ -28,8 +31,9 @@ public class MapViewModel : BindableObject
     {
         var sp = (SerialPort)sender;
         var inData = sp.ReadLine();
-        if (!Regex.IsMatch(inData)) return;
         var position = Position.FromData(inData);
+        if(position.Altitude==0 || position.Location.Latitude==0)
+            return;
         _track.Add(position);
         var line = (Polyline) Drawables[0];
         line.Positions.Add(position.ToMapsMauiPosition());
