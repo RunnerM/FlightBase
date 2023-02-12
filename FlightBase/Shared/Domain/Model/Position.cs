@@ -1,8 +1,8 @@
-﻿namespace FlightBase.Common.Domain;
+﻿namespace FlightBase.Shared.Domain.Model;
 
 public class Position
 {
-    public Location Location { get; set; } 
+    private readonly Location _location = new Location();
     public double Altitude { get; set; }
     public double Speed { get; set; }
 }

@@ -1,4 +1,4 @@
-﻿namespace FlightBase.Common.Domain;
+﻿namespace FlightBase.Shared.Domain.Model;
 
 public class Location
 {
