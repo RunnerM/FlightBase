@@ -1,7 +1,9 @@
 ﻿using FlightBase.Shared.ViewModel;
 using Mapsui.Extensions;
 using Mapsui.Tiling;
+using Mapsui.UI.Objects;
 using Mapsui.Widgets.Zoom;
+using Microsoft.Maui.Controls.Shapes;
 using NetTopologySuite.Geometries;
 using Color = Mapsui.Styles.Color;
 using Position = Mapsui.UI.Maui.Position;
@@ -11,34 +13,38 @@ namespace FlightBase;
 
 public partial class MapPage : ContentPage
 {
+    private readonly BindableProperty DrawablesProperty = BindableProperty.Create(
+        nameof(Drawables),
+        typeof(IList<Drawable>),
+        typeof(MapPage), null, BindingMode.OneWay,
+        propertyChanged: OnDrawableChanged);
+
+    private static void OnDrawableChanged(BindableObject bindable, object oldvalue, object newvalue)
+    {
+        if (bindable is MapPage mapPage)
+        {
+            mapPage.MapView.Drawables.Clear();
+            foreach (var drawable in (IList<Drawable>) newvalue)
+            {
+                mapPage.MapView.Drawables.Add(drawable);
+            }
+        }
+    }
+
+    private IList<Drawable> Drawables
+    {
+        get => (IList<Drawable>) GetValue(DrawablesProperty);
+        set => SetValue(DrawablesProperty, value);
+    }
+    
     public MapPage(MapViewModel mapViewModel)
     {
         InitializeComponent();
-        //Location location;
-        //location = Geolocation.GetLastKnownLocationAsync().Result;
-
-        //if (location != null)
-        // Map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromKilometers(1)));
-        //var mapControl = new Mapsui.UI.Maui.MapControl();
         MapView.Map?.Layers.Add(OpenStreetMap.CreateTileLayer());
-        MapView.Pins.Add(new Mapsui.UI.Maui.Pin()
-        {
-            Label = "Test",
-            Position = new Position(55.8581, 9.8476)
-        });
-        MapView.Drawables.Add(new Mapsui.UI.Maui.Polyline()
-        {
-            Positions =
-            {
-                new Position(55.8581, 9.8476),
-                new Position(55.8571, 9.8466),
-                new Position(55.8561, 9.8456),
-            },
-            StrokeColor = Colors.Red,
-            StrokeWidth = 5
-        });
-
-
+        MapView.MyLocationEnabled = true;
+        MapView.MyLocationFollow = true;
+        BindingContext= mapViewModel;
+        Drawables = mapViewModel.Drawables;
         //BindingContext = mapViewModel;
     }
 }
