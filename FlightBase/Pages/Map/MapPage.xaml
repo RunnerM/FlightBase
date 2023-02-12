@@ -9,7 +9,7 @@
         <StyleSheet Source="/Resources/Styles/css/general.css" />
     </ContentPage.Resources>
     <ContentPage.Content>
-        <maui:MapControl x:Name="MapControl"/>
+        <maui:MapView x:Name="MapView"/>
         
     </ContentPage.Content>
 </ContentPage>
