@@ -4,7 +4,6 @@ using FlightBase.Shared.Domain.Model;
 using FlightBase.Shared.Services.Common;
 using Mapsui.UI.Maui;
 using Mapsui.UI.Objects;
-using static Android.Renderscripts.ScriptGroup;
 using MauiPosition = Mapsui.UI.Maui.Position;
 using Position = FlightBase.Shared.Domain.Model.Position;
 
